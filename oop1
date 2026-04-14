@@ -1,0 +1,88 @@
+//Smart Home Hub
+import java.util.Scanner;
+
+// 1. ABSTRACTION
+interface SecurityDevice {
+    void activate();
+    void showInfo();
+}
+
+// 2. ENCAPSULATION
+abstract class Device implements SecurityDevice {
+    private String name;
+    private boolean status;
+
+    private final String ownerName = "Dip Tanchangya";
+    private final String ownerId = "242-35-206";
+
+    public Device(String name) {
+        this.name = name;
+        this.status = false;
+    }
+
+    public void showInfo() {
+        System.out.println("Device: " + name);
+        System.out.println("Owner: " + ownerName + " | ID: " + ownerId);
+    }
+
+    protected void setStatus(boolean status) {
+        this.status = status;
+    }
+}
+
+// 3. INHERITANCE
+class SmartCamera extends Device {
+    public SmartCamera(String name) {
+        super(name);
+    }
+
+    public void activate() {
+        setStatus(true);
+        System.out.println("Camera is Recording...");
+    }
+}
+
+class SmartAlarm extends Device {
+    public SmartAlarm(String name) {
+        super(name);
+    }
+
+    public void activate() {
+        setStatus(true);
+        System.out.println("Alarm is Ringing!!!");
+    }
+}
+
+// 4. POLYMORPHISM + USER CHOICE
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Select System:");
+        System.out.println("1. Front Camera");
+        System.out.println("2. Gate Alarm");
+        System.out.print("Enter choice: ");
+
+        int choice = sc.nextInt();
+
+        SecurityDevice device;
+
+        if (choice == 1) {
+            device = new SmartCamera("Front Camera");
+        } else if (choice == 2) {
+            device = new SmartAlarm("Gate Alarm");
+        } else {
+            System.out.println("Invalid choice!");
+            sc.close();
+            return;
+        }
+
+        System.out.println("\n--- SYSTEM START ---");
+
+        device.showInfo();
+        device.activate();
+
+        sc.close();
+    }
+}
