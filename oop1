@@ -1,12 +1,10 @@
 import java.util.Scanner;
 
-// Abstraction
 interface SecurityDevice {
     void activate();
     void showInfo();
 }
 
-// Encapsulation
 abstract class Device implements SecurityDevice {
     private String name;
     private boolean status;
@@ -23,7 +21,6 @@ abstract class Device implements SecurityDevice {
     protected void setStatus(boolean s) { status = s; }
 }
 
-// Inheritance
 class SmartCamera extends Device {
     public SmartCamera(String n) { super(n); }
     public void activate() { setStatus(true); System.out.println("Camera Recording..."); }
@@ -34,7 +31,6 @@ class SmartAlarm extends Device {
     public void activate() { setStatus(true); System.out.println("Alarm Ringing!!!"); }
 }
 
-// Polymorphism + Menu
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
